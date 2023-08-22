@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -25,7 +26,7 @@ public class SpringSecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.csrf().disable().cors().disable()
+        http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(request -> request
                         .dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll()
                         .requestMatchers("/status", "/images/**", "/join", "/swagger-ui.html"," /oauth2/authorization/google").permitAll()
@@ -39,12 +40,13 @@ public class SpringSecurityConfig {
                         .permitAll()
                 )
 
-
                 .logout(withDefaults())
-
+//
                 .oauth2Login(oauth2Configurer -> oauth2Configurer
-                        .userInfoEndpoint()
-                        .userService(customOAuth2UserService));
+                        .userInfoEndpoint(userInfo ->
+                                userInfo.userService(customOAuth2UserService)))
+//                        .userService(customOAuth2UserService))
+        ;
 
 
         return http.build();

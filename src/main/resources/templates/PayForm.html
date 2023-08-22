@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h1>투자 페이지</h1>
+    <ul>
+        <li>
+            <form>
+                <div id="itemName" th:text="${market.itemName}">OO회사</div>
+                <div id="price" th:text="${market.price}">가격 : 12000</div>
+                <div id="detail" th:text="${market.detail}"></div>
+                <button id="btn-pay" class="btn btn-primary" data-id="${market.marketIdx}" th:attr="data-id=${market.marketIdx}">투자하기</button>
+            </form>
+        </li>
+    </ul>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#btn-pay").on("click", function () {
+                let dataId = $(this).data("id");
+                $.ajax({
+                    type: "PUT",
+                    url: "/payform/pay/" + dataId,
+                    success: function (data) {
+                        alert(data);
+                        location.href = "/";
+                    },
+                    error: function (error) {
+                        alert(error.responseText);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
+<!--                <button class="btn btn-primary">투자하기</button>-->
+<!--            </form>-->
+<!--        </li>-->
+<!--    </ul>-->
+<!--&lt;!&ndash;    <script src="/js/payForm.js"></script>&ndash;&gt;-->
+<!--</body>-->
+
+<!--</html>-->

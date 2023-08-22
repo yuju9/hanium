@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h1>결제 페이지</h1>
+    <!-- 결제 목록을 리스트로 뽑아내서 작성을 하면될꺼같은데
+         여기에다가 결제 pg사 작성하면 깔끔 그자체
+         버튼 목록 여러개 넣어두고 결제 방식 어떤 거로 할지 넣어두고 form태그로 보내면 될꺼같음
+
+    -->
+    <h2>예치금 잔액</h2>
+    <div>DB 저장값</div>
+    <div th:text="${deposit}"></div>
+
+    <div>블록체인 저장값</div>
+    <div th:text="${bcdeposit}"></div>
+
+    <ul>
+
+
+        <li>
+            <form action="/depositPay" method="get">
+                <div>예치금 충전</div>
+
+                <input type="hidden" name="itemName" value="예치금">
+<!--                <div>가격 : 12000</div>-->
+                <label>
+                    <input name="price" value="100">
+                </label>
+                <input type="hidden" name="introduce" value="예치금 충전">
+                <input type="hidden" name="PGName" value="html5_inicis">
+                <input type="submit" value="가상계좌 결제하기">
+            </form>
+        </li>
+    </ul>
+</body>
+
+</html>

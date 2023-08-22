@@ -18,13 +18,15 @@ public class MemberDto {
 
     private Role role;
 
+    private Long deposit;
+
     /* DTO -> Entity */
     public Member toEntity(PasswordEncoder passwordEncoder) {
         Member member = Member.builder()
                 .username(username)
                 .password(passwordEncoder.encode(password))
-                .role(role.USER).
-                build();
+                .role(role.USER)
+                        .deposit(0L).build();
         return member;
     }
 }

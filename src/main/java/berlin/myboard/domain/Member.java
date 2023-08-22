@@ -2,8 +2,10 @@ package berlin.myboard.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 
 @Getter
+@Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @AllArgsConstructor
@@ -31,4 +33,7 @@ public class Member extends TimeEntity{
         this.onPreUpdate();
         return this;
     }
+
+    @ColumnDefault("0")
+    private Long deposit;
 }
